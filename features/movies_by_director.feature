@@ -32,3 +32,24 @@ Scenario: can't find similar movies if we don't know director (sad path)
   When  I follow "Find Movies With Same Director"
   Then  I should be on the home page
   And   I should see "'Alien' has no director info"
+
+Scenario: create a new movie
+  When I go to the home page
+  And  I follow "Add new movie"
+  And  I fill in "Title" with "The Matrix"
+  And  I select "R" from "Rating"
+  And  I fill in "Director" with "Wachowski Brothers"
+  And  I press "Save Changes"
+  Then I should be on the home page
+  And  I should see "The Matrix"
+
+Scenario: destroy a movie
+  When I go to the home page
+  Then I should see "Alien"
+  When I go to the details page for "Alien"
+  And  I follow "Delete"
+  Then I should be on the home page
+  And  I should see "Movie 'Alien' deleted"
+  And  I should see "Star Wars"
+  And  I should see "Blade Runner"
+  And  I should see "THX-1138"
